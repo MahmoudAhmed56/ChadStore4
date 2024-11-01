@@ -2,7 +2,6 @@
 import { Product } from "@/typy";
 import Link from "next/link";
 import "./product.css";
-import { Button } from "../ui/button";
 import { useRef, useState } from "react";
 import { Info } from "lucide-react";
 import {useDispatch} from "react-redux"

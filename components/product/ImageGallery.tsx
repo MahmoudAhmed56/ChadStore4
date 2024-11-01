@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import Skeleton from "./skeleton";
 
 interface iAppProps {
   images: any;

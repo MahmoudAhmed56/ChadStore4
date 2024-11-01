@@ -13,7 +13,6 @@ const CartSidebar = ({ items }: Props) => {
   const increaseItemCart = (item:CartItem)=> dispatch(addItem(item));
   const decreaseItemCart = (id:number)=> dispatch(removeItem({id}));
   const removeAllItemsFromCart = (id:number)=> dispatch(removeAllItems({id}));
-  const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
   const totalPrice = items.reduce((total, item) =>total + item.price *item.quantity,0).toFixed(2)
   const vat = (+totalPrice * 0.01).toFixed(2)
   const shipping = Number(4).toFixed(2);

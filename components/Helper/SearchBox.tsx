@@ -9,7 +9,6 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 const SearchBox = () => {

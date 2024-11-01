@@ -3,8 +3,7 @@ import ProductCard from "@/components/Home/ProductCard";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import { setSearchTerm } from "@/store/productSearch";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import SearchBar from "../_components/SearchBar";
 import Pagination from "@/components/All-product/Pagination";
@@ -50,7 +49,7 @@ const Search = ({
           <h2 className="text-center font-bold text-2xl mb-2">Results</h2>
           {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {entries?.map((product) => {
+              {entries?.map((product:any) => {
                 return <ProductCard key={product.id} product={product} />;
               })}
             </div>

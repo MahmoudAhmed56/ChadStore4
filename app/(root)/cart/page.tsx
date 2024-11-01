@@ -28,7 +28,7 @@ const Cart = () => {
     items.length > 0 ? (+totalPrice + +vat + +shipping).toFixed(2) : 0;
   const { user } = useUser();
 
-  const handelSuccess = (details: any) => {
+  const handelSuccess = () => {
     router.push("/success");
     dispatch(clearCart());
   };
