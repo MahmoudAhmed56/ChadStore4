@@ -22,7 +22,7 @@ const Search = ({
   const per_page = searchParams["per_page"] ?? "6";
   const start = (Number(page) - 1) * (Number(per_page));
   const end = start + Number(per_page)
-  const entries = filterProducts.slice(start,end)
+  const entries = [filterProducts].slice(start,end)
 
 
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const Search = ({
   // onSubmit={handelSearch}
   useEffect(() => {
     dispatch(setSearchTerm(params.searchName));
-  }, []);
+  }, [params.searchName]);
 
   return (
     <div>
@@ -54,7 +54,7 @@ const Search = ({
               })}
             </div>
           }
-          <Pagination params={`search/${params.searchName}`} data={filterProducts} />
+          <Pagination params={`search/${params.searchName}`} data={Object.values(filterProducts)} />
       </div>)
         :
         (

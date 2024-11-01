@@ -7,7 +7,7 @@ const SearchBar = ({ searchName }: { searchName: string }) => {
   const [search, setSearch] = useState<string>(searchName);
   const dispatch = useDispatch();
   const router = useRouter();
-  const handelSearch = (e: any) => {
+  const handelSearch = (e:any) => {
     e.preventDefault();
     dispatch(setSearchTerm(search));
     router.push(`/search/${search}`);

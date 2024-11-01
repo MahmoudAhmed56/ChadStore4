@@ -23,7 +23,7 @@ export default function Pagination({params,data}:{params:string;
   const router: any = useRouter();
   const searchParams: any = useSearchParams();
 
-  const page = searchParams["page"] ?? "1";
+  // const page = searchParams["page"] ?? "1";
   const per_page = searchParams["per_page"] ?? "6";
 
   const [currentPage, setCurrentPage] = useState(1);

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import SearchBox from "../Helper/SearchBox";
 import { UserIcon } from "lucide-react";

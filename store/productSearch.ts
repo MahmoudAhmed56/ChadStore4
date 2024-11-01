@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   products: data,
   searchTerm: "",
-  filterData: []
+  filterData: {}
 };
 const searchProduct = createSlice({
   name: "products",
