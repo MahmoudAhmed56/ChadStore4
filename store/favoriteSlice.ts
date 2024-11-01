@@ -14,15 +14,13 @@ interface FavoriteState {
   items: FavoriteItem[];
 }
 const initialState: FavoriteState = {
-  items: window.localStorage.getItem("favoriteList") !== null
-  ? JSON.parse(window.localStorage.getItem("favoriteList") || '[]')
-  : [],
+  items:  []
 };
 // 
 // adding this function to prevent repear code
-const setFavoriteListFunc = (products:any) => {
-  window.localStorage.setItem("favoriteList", JSON.stringify(products));
-};
+// const setFavoriteListFunc = (products:any) => {
+//   window.localStorage.setItem("favoriteList", JSON.stringify(products));
+// };
 
 const FavoriteSlice = createSlice({
   name:"favorite",
@@ -35,9 +33,9 @@ const FavoriteSlice = createSlice({
       if (!existingItem) {
         state.items.push({ ...action.payload, quantity: 1 });
       }
-      setFavoriteListFunc(
-        state.items.map((item) => item)
-      );
+      // setFavoriteListFunc(
+      //   state.items.map((item) => item)
+      // );
     },
     removeFromFavorite: (state, action: PayloadAction<{ id: number }>) => {
       const existingItem = state.items.find(
@@ -48,15 +46,15 @@ const FavoriteSlice = createSlice({
           (item) => item.id != action.payload.id
         );
       }
-      setFavoriteListFunc(
-        state.items.map((item) => item)
-      );
+      // setFavoriteListFunc(
+      //   state.items.map((item) => item)
+      // );
     },
     clearFavorite:(state)=>{
       state.items= [];
-      setFavoriteListFunc(
-        state.items.map((item) => item)
-      );
+      // setFavoriteListFunc(
+      //   state.items.map((item) => item)
+      // );
     }
   }
 })
