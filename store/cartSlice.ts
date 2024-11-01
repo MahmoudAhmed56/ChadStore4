@@ -4,7 +4,7 @@ export interface CartItem {
   title: string;
   price: number;
   category: {
-    name:string
+    name: string;
   };
   images: string[];
   quantity: number;
@@ -15,17 +15,18 @@ interface CartState {
 }
 
 const initialState: CartState = {
-  items: localStorage.getItem("cartList") !== null
-  ? JSON.parse(localStorage.getItem("cartList") || '[]')
-  : [],
+  items:
+    localStorage.getItem("cartList") !== null
+      ? JSON.parse(localStorage.getItem("cartList") || "[]")
+      : [],
 };
 
 // adding this function to prevent repear code
-const setCartListFunc = (products:any) => {
+const setCartListFunc = (products: any) => {
   localStorage.setItem("cartList", JSON.stringify(products));
 };
 
-const cartSlice = createSlice({
+const cartSlice: any = createSlice({
   name: "cart",
   initialState,
   reducers: {
@@ -38,20 +39,16 @@ const cartSlice = createSlice({
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }
-      setCartListFunc(
-        state.items.map((item) => item)
-      );
+      setCartListFunc(state.items.map((item) => item));
     },
-    addItemOnce:(state, action: PayloadAction<Omit<CartItem, "quantity">>) => {
+    addItemOnce: (state, action: PayloadAction<Omit<CartItem, "quantity">>) => {
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
       if (!existingItem) {
         state.items.push({ ...action.payload, quantity: 1 });
       }
-      setCartListFunc(
-        state.items.map((item) => item)
-      );
+      setCartListFunc(state.items.map((item) => item));
     },
     removeItem: (state, action: PayloadAction<{ id: number }>) => {
       const existingItem = state.items.find(
@@ -66,9 +63,7 @@ const cartSlice = createSlice({
           );
         }
       }
-      setCartListFunc(
-        state.items.map((item) => item)
-      );
+      setCartListFunc(state.items.map((item) => item));
     },
     removeAllItems: (state, action: PayloadAction<{ id: number }>) => {
       const existingItem = state.items.find(
@@ -79,19 +74,16 @@ const cartSlice = createSlice({
           (item) => item.id != action.payload.id
         );
       }
-      setCartListFunc(
-        state.items.map((item) => item)
-      );
+      setCartListFunc(state.items.map((item) => item));
     },
-    clearCart:(state)=>{
+    clearCart: (state) => {
       state.items = [];
-      setCartListFunc(
-        state.items.map((item) => item)
-      );
-    }
+      setCartListFunc(state.items.map((item) => item));
+    },
   },
 });
 
-export const {addItem,removeItem,removeAllItems,clearCart,addItemOnce}=cartSlice.actions;
+export const { addItem, removeItem, removeAllItems, clearCart, addItemOnce } =
+  cartSlice.actions;
 
-export default cartSlice.reducer
+export default cartSlice.reducer;

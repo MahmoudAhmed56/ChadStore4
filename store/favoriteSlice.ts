@@ -18,7 +18,7 @@ const initialState: FavoriteState = {
   ? JSON.parse(localStorage.getItem("cartList") || '[]')
   : [],
 };
-
+// 
 // adding this function to prevent repear code
 const setFavoriteListFunc = (products:any) => {
   localStorage.setItem("cartList", JSON.stringify(products));
