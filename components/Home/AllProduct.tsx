@@ -1,5 +1,4 @@
 "use client";
-import { getAllProduct } from "@/Request/request";
 import { Product } from "@/typy";
 import { useState, useEffect } from "react";
 

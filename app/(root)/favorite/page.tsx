@@ -1,15 +1,16 @@
 "use client";
 import { toast } from "@/hooks/use-toast";
 import { addItemOnce } from "@/store/cartSlice";
-import { clearFavorite, removeFromFavorite } from "@/store/favoriteSlice";
+import { FavoriteItem, clearFavorite, removeFromFavorite } from "@/store/favoriteSlice";
 import { RootState } from "@/store/store";
 import { Product } from "@/typy";
-import { ShoppingCart } from "lucide-react";
+// import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 
 const Favorite = () => {
+
   const items = useSelector((state: RootState) => state.favorite.items);
   const dispatch = useDispatch();
   const removeItemFromFavorite = (id: number) => {
@@ -50,7 +51,7 @@ const Favorite = () => {
         )}
         {items.length > 0 && (
           <>
-            {items?.map((item:any) => {
+            {items?.map((item:FavoriteItem) => {
               return (
                 <div
                   key={item.id}
@@ -67,7 +68,10 @@ const Favorite = () => {
                   </div>
                   <div className="col-span-12 lg:col-span-10 detail w-full lg:pl-3">
                     <div className="flex items-center justify-between w-full mb-4">
-                      <Link href={`product/product-details/${item.id}`} className="font-manrope font-bold text-2xl leading-9 text-gray-900 decoration-1 decoration-sky-300 hover:underline">
+                      <Link
+                        href={`product/product-details/${item.id}`}
+                        className="font-manrope font-bold text-2xl leading-9 text-gray-900 decoration-1 decoration-sky-300 hover:underline"
+                      >
                         {item.title}
                       </Link>
                       <button
@@ -104,14 +108,13 @@ const Favorite = () => {
                       {item.description}
                     </p>
                     <div className="flex justify-between items-center">
-                      <button
-                      
+                      {/* <button
                         onClick={() => addToCartHandler(item)}
                         type="button"
                         className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-md px-5 py-2.5 text-center select-none flex gap-1"
                       >
                         Add to Cart <ShoppingCart />
-                      </button>
+                      </button> */}
                       <h6 className="text-indigo-600 font-manrope font-bold text-2xl leading-9 text-right">
                         ${item.price}
                       </h6>
@@ -138,8 +141,7 @@ const Favorite = () => {
           <p className="font-normal text-base leading-7 text-gray-500 text-center mb-5 mt-6">
             Shipping taxes, and discounts calculated at checkout
           </p>
-<div className="flex flex-col lg:flex-row">
-  
+          <div className="flex flex-col lg:flex-row">
             {items.length == 0 ? (
               <Link
                 href={"/"}
@@ -162,8 +164,7 @@ const Favorite = () => {
             >
               View Cart
             </Link>
-            
-</div>
+          </div>
         </div>
       </div>
     </section>
