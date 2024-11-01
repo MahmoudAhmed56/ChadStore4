@@ -16,14 +16,14 @@ interface CartState {
 
 const initialState: CartState = {
   items:
-    localStorage.getItem("cartList") !== null
-      ? JSON.parse(localStorage.getItem("cartList") || "[]")
+    window.localStorage.getItem("cartList") !== null
+      ? JSON.parse(window.localStorage.getItem("cartList") || "[]")
       : [],
 };
 
 // adding this function to prevent repear code
 const setCartListFunc = (products: any) => {
-  localStorage.setItem("cartList", JSON.stringify(products));
+  window.localStorage.setItem("cartList", JSON.stringify(products));
 };
 
 const cartSlice: any = createSlice({
