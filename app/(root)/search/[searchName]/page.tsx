@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import SearchBar from "../_components/SearchBar";
 import Pagination from "@/components/All-product/Pagination";
 import Image from "next/image";
+import { Product } from "@/typy";
 const Search = ({
   params,
   searchParams,
@@ -22,7 +23,7 @@ const Search = ({
   const per_page = searchParams["per_page"] ?? "6";
   const start = (Number(page) - 1) * (Number(per_page));
   const end = start + Number(per_page)
-  const entries = [filterProducts].slice(start,end)
+  const entries = filterProducts.slice(start,end)
 
 
   const dispatch = useDispatch();
@@ -49,12 +50,12 @@ const Search = ({
           <h2 className="text-center font-bold text-2xl mb-2">Results</h2>
           {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {entries?.map((product:any) => {
+              {entries?.map((product:Product) => {
                 return <ProductCard key={product.id} product={product} />;
               })}
             </div>
           }
-          <Pagination params={`search/${params.searchName}`} data={Object.values(filterProducts)} />
+          <Pagination params={`search/${params.searchName}`} data={filterProducts} />
       </div>)
         :
         (

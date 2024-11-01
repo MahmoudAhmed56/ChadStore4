@@ -20,11 +20,12 @@ export default function Pagination({params,data}:{params:string;
 }[]}) {
 
   
-  const router: any = useRouter();
-  const searchParams: any = useSearchParams();
-
+  const router  = useRouter();
+  const searchParams = useSearchParams();
+  
   // const page = searchParams["page"] ?? "1";
-  const per_page = searchParams["per_page"] ?? "6";
+  const per_page = searchParams.get("per_page") ?? "6";
+console.log(per_page);
 
   const [currentPage, setCurrentPage] = useState(1);
 
