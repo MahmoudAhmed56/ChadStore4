@@ -2,7 +2,7 @@ import Link from "next/link";
 import SearchBox from "../Helper/SearchBox";
 import { UserIcon } from "lucide-react";
 import ShoppingCartButton from "../Helper/ShoppingCartButton";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import {  SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import FavoriteButton from "../Helper/FavoriteButton";
 import Logo from "../Helper/Logo";
 
@@ -22,13 +22,13 @@ const Nav = () => {
             <UserButton />
           </SignedIn>
 
-          <Link href={"/sign-up"}>
+
             <SignedOut>
-              <SignInButton>
+              <SignUpButton>
                 <UserIcon size={26} cursor={"pointer"} />
-              </SignInButton>
+              </SignUpButton>
             </SignedOut>
-          </Link>
+
         </div>
       </div>
     </div>
