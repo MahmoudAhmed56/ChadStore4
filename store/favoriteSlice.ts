@@ -14,14 +14,14 @@ interface FavoriteState {
   items: FavoriteItem[];
 }
 const initialState: FavoriteState = {
-  items: window.localStorage.getItem("cartList") !== null
-  ? JSON.parse(window.localStorage.getItem("cartList") || '[]')
+  items: window.localStorage.getItem("favoriteList") !== null
+  ? JSON.parse(window.localStorage.getItem("favoriteList") || '[]')
   : [],
 };
 // 
 // adding this function to prevent repear code
 const setFavoriteListFunc = (products:any) => {
-  window.localStorage.setItem("cartList", JSON.stringify(products));
+  window.localStorage.setItem("favoriteList", JSON.stringify(products));
 };
 
 const FavoriteSlice = createSlice({
