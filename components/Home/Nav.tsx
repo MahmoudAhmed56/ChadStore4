@@ -24,9 +24,9 @@ const Nav = () => {
 
 
             <SignedOut>
-              <SignUpButton>
+              <Link href={"/sign-up"}>
                 <UserIcon size={26} cursor={"pointer"} />
-              </SignUpButton>
+              </Link>
             </SignedOut>
 
         </div>
