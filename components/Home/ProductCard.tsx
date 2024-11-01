@@ -8,6 +8,7 @@ import {useDispatch} from "react-redux"
 import { addItemOnce } from "@/store/cartSlice";
 import { useToast } from "@/hooks/use-toast";
 import { addToFavorite } from "@/store/favoriteSlice";
+import Image from "next/image";
 
 type props = {
   product: Product;
@@ -38,9 +39,11 @@ const ProductCard = ({ product }: props) => {
       <div className="wrapper border border-slate-200 rounded-lg">
       <div className="relative flex flex-col bg-white shadow-sm ">
   <div className="relative overflow-hidden bg-clip-border h-[400px]">
-    <img
+    <Image
       src={product.images[0]}
       alt={product.title}
+      width={400}
+      height={400}
       className="h-full w-full object-cover"
     />
   </div>
