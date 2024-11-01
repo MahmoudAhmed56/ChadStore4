@@ -22,11 +22,13 @@ const Nav = () => {
             <UserButton />
           </SignedIn>
 
-          <SignedOut>
-            <SignInButton>
-              <UserIcon size={26} cursor={"pointer"} />
-            </SignInButton>
-          </SignedOut>
+          <Link href={"/sign-up"}>
+            <SignedOut>
+              <SignInButton>
+                <UserIcon size={26} cursor={"pointer"} />
+              </SignInButton>
+            </SignedOut>
+          </Link>
         </div>
       </div>
     </div>
