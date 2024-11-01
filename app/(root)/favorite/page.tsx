@@ -1,9 +1,9 @@
 "use client";
-import { toast } from "@/hooks/use-toast";
-import { addItemOnce } from "@/store/cartSlice";
+// import { toast } from "@/hooks/use-toast";
+// import { addItemOnce } from "@/store/cartSlice";
 import { FavoriteItem, clearFavorite, removeFromFavorite } from "@/store/favoriteSlice";
 import { RootState } from "@/store/store";
-import { Product } from "@/typy";
+// import { Product } from "@/typy";
 // import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,13 +19,13 @@ const Favorite = () => {
   const clearAllFavorite = () => {
     dispatch(clearFavorite());
   };
-  const addToCartHandler = (product: Product) => {
-    toast({
-      description: "Item Added To Cart",
-      variant: "success",
-    });
-    dispatch(addItemOnce(product));
-  };
+  // const addToCartHandler = (product: Product) => {
+  //   toast({
+  //     description: "Item Added To Cart",
+  //     variant: "success",
+  //   });
+  //   dispatch(addItemOnce(product));
+  // };
   const totalPrice = items
     .reduce((total, item) => total + item.price * item.quantity, 0)
     .toFixed(2);

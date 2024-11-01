@@ -7,7 +7,6 @@ import { RootState } from "@/store/store";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
 const Cart = () => {
