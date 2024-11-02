@@ -9,20 +9,21 @@ import Pagination from "@/components/All-product/Pagination";
 import Image from "next/image";
 import { Product } from "@/typy";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
+type Params = {
+  searchName: string
+}
 
 
-
-const SearchBar = ({
-  params,
-  searchParams,
-}: {
-  params: { searchName: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+const SearchBar = () => {
+  const params:Params = useParams()
+  const searchParams = useSearchParams()
+  console.log(params);
+  console.log(searchParams);
+  
   const [search, setSearch] = useState<string>(params.searchName);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -35,8 +36,8 @@ const SearchBar = ({
   const filterProducts = useSelector(
     (state: RootState) => state.search.filterData
   );
-  const page = searchParams["page"] ?? "1";
-  const per_page = searchParams["per_page"] ?? "6";
+  const page = searchParams.get("page") ?? "1";
+  const per_page = searchParams.get("per_page") ?? "6";
   const start = (Number(page) - 1) * Number(per_page);
   const end = start + Number(per_page);
   const entries = filterProducts.slice(start, end);
