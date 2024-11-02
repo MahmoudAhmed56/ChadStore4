@@ -39,7 +39,7 @@ const SearchBar = () => {
   const per_page = searchParams.get("per_page") ?? "6";
   const start = (Number(page) - 1) * Number(per_page);
   const end = start + Number(per_page);
-  const entries = filterProducts.slice(start, end);
+  const entries = filterProducts?.slice(start, end);
   return (
     <div>
       <div className="relative flex-1 mx-4">
@@ -81,9 +81,7 @@ const SearchBar = () => {
             />
             <button
               type="submit"
-              onClick={() => {
-                handelSearch;
-              }}
+              onClick={() =>handelSearch}
               className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Search
@@ -98,7 +96,7 @@ const SearchBar = () => {
             <h2 className="text-center font-bold text-2xl mb-2">Results</h2>
             {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {entries?.map((product: Product) => {
+                {entries.map((product: Product) => {
                   return <ProductCard key={product.id} product={product} />;
                 })}
               </div>
