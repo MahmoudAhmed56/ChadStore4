@@ -28,8 +28,10 @@ const SearchBar = () => {
   const router = useRouter();
   const handelSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(setSearchTerm(search));
+    if (search) {
+      dispatch(setSearchTerm(search));
     router.push(`/search/${search}`);
+    }
   };
 
   const filterProducts = useSelector(
