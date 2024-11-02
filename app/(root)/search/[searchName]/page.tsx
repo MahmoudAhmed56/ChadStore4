@@ -21,8 +21,7 @@ type Params = {
 const SearchBar = () => {
   const params:Params = useParams()
   const searchParams = useSearchParams()
-  console.log(params);
-  console.log(searchParams);
+
   
   const [search, setSearch] = useState<string>(params.searchName);
   const dispatch = useDispatch();
