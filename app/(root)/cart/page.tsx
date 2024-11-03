@@ -7,23 +7,34 @@ import { RootState } from "@/store/store";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Cart = () => {
+  const [isClient, setIsClient] = useState(false)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   const items = useSelector((state: RootState) => state.cart.items);
   const dispatch = useDispatch();
   const decreaseItemCart = (id: number) => dispatch(removeItem({ id }));
   const increaseItemCart = (item: CartItem) => dispatch(addItem(item));
 
   const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
-  const totalPrice = items
+  const totalQuantityFun = ()=>{
+    if (isClient) {
+      return totalQuantity
+    }
+  }
+  const totalPrice = isClient && items 
     .reduce((total, item) => total + item.price * item.quantity, 0)
     .toFixed(2);
-  const vat = (+totalPrice * 0.01).toFixed(2);
+  const vat = isClient && (+totalPrice * 0.01).toFixed(2);
 
-  const shipping = Number(4).toFixed(2);
+  const shipping = isClient && Number(4).toFixed(2)
   const totalPriceWithVat =
-    items.length > 0 ? (+totalPrice + +vat + +shipping).toFixed(2) : 0;
+    items.length > 0 && isClient ? (+totalPrice + +vat + +shipping).toFixed(2) : 0;
   const { user } = useUser();
 
 
@@ -37,11 +48,11 @@ const Cart = () => {
                 Shopping Cart
               </h2>
               <h2 className="font-manrope font-bold text-xl leading-8 text-gray-600">
-                {totalQuantity} Items
+                {totalQuantityFun()} Items
               </h2>
             </div>
 
-            {items.length == 0 && (
+            {items.length == 0 && isClient &&(
               <div className="flex items-center w-full h-[80vh] flex-col justify-center">
                 <Image
                   src={"/images/cart.svg"}
@@ -55,7 +66,7 @@ const Cart = () => {
                 </h3>
               </div>
             )}
-            {items.length > 0 && (
+            {items.length > 0 && isClient &&(
               <div>
                 <div className="grid grid-cols-12 mt-8 max-md:hidden pb-6 border-b border-gray-200">
                   <div className="col-span-12 md:col-span-7">
@@ -203,23 +214,24 @@ const Cart = () => {
             )}
 
             <div className="flex items-center justify-between mt-8">
-              {items.length == 0 ? (
-                <Link
-                  href="/"
-                  className="text-white cursor-pointer bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
-                >
-                  keep Shopping
-                </Link>
+              {items.length > 0 && isClient ? (
+                            <button
+                            onClick={() => {
+                              dispatch(clearCart());
+                            }}
+                            type="button"
+                            className="text-white cursor-pointer bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
+                          >
+                            Delete All Cart
+                          </button>
               ) : (
-                <button
-                  onClick={() => {
-                    dispatch(clearCart());
-                  }}
-                  type="button"
-                  className="text-white cursor-pointer bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
-                >
-                  Delete All Cart
-                </button>
+    
+                <Link
+                href="/"
+                className="text-white cursor-pointer bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
+              >
+                keep Shopping
+              </Link>
               )}
             </div>
           </div>
@@ -230,7 +242,7 @@ const Cart = () => {
             <div className="mt-8">
               <div className="flex items-center justify-center pb-6 ">
                 <p className="font-semibold text-xl leading-8 text-black">
-                  {totalQuantity} Items
+                  {totalQuantityFun()} Items
                 </p>
               </div>
               <div className="flex items-center justify-between pb-6">
@@ -432,7 +444,7 @@ const Cart = () => {
                 </div>
                 <div className="flex items-center justify-between py-8">
                   <p className="font-medium text-xl leading-8 text-black">
-                    {totalQuantity} Items
+                    {totalQuantityFun()} Items
                   </p>
                   <p className="font-semibold text-xl leading-8 text-indigo-600">
                     ${totalPriceWithVat}

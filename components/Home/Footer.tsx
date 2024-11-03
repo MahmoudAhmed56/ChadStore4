@@ -1,8 +1,9 @@
 
 import Logo from "../Helper/Logo";
+import GetDate from "./GetDate";
 
 const Footer = () => {
-  const d = new Date();
+
   return (
     <footer className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 py-10 px-10 font-sans tracking-wide">
     <div className="max-w-2xl mx-auto text-center">
@@ -127,7 +128,7 @@ const Footer = () => {
           <a href='#0' className='text-white font-semibold hover:underline'>Security</a>
         </li>
       </ul>
-      <p className='text-sm text-gray-200 md:ml-auto'>© Chad Store {d.getFullYear()}. All rights reserved.</p>
+      <GetDate />
     </div>
   </footer>
 

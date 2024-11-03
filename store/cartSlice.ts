@@ -14,18 +14,28 @@ interface CartState {
   items: CartItem[];
 }
 
-
-const initialState: CartState = {
-  items:
-     []
+let initialState: CartState = {
+  items:[]
 };
 
+if (typeof window !== "undefined") {
+  initialState = {
+    items:
+      localStorage.getItem("cartList") !== null
+        ? JSON.parse(localStorage.getItem("cartList") || "[]")
+        : [],
+  }
+}
+
+
+
 // adding this function to prevent repear code
-// const setCartListFunc = (products: any) => {
-//   localStorage.setItem("cartList", JSON.stringify(products));
-// };
+const setCartListFunc = (products: any) => {
+  localStorage.setItem("cartList", JSON.stringify(products));
+};
 
 const cartSlice = createSlice({
+
   name: "cart",
   initialState,
   reducers: {
@@ -38,7 +48,7 @@ const cartSlice = createSlice({
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }
-      // setCartListFunc(state.items.map((item) => item));
+      setCartListFunc(state.items.map((item) => item));
     },
     addItemOnce: (state, action: PayloadAction<Omit<CartItem, "quantity">>) => {
       const existingItem = state.items.find(
@@ -47,7 +57,7 @@ const cartSlice = createSlice({
       if (!existingItem) {
         state.items.push({ ...action.payload, quantity: 1 });
       }
-      // setCartListFunc(state.items.map((item) => item));
+      setCartListFunc(state.items.map((item) => item));
     },
     removeItem: (state, action: PayloadAction<{ id: number }>) => {
       const existingItem = state.items.find(
@@ -62,7 +72,7 @@ const cartSlice = createSlice({
           );
         }
       }
-      // setCartListFunc(state.items.map((item) => item));
+      setCartListFunc(state.items.map((item) => item));
     },
     removeAllItems: (state, action: PayloadAction<{ id: number }>) => {
       const existingItem = state.items.find(
@@ -73,11 +83,11 @@ const cartSlice = createSlice({
           (item) => item.id != action.payload.id
         );
       }
-      // setCartListFunc(state.items.map((item) => item));
+      setCartListFunc(state.items.map((item) => item));
     },
     clearCart: (state) => {
       state.items = [];
-      // setCartListFunc(state.items.map((item) => item));
+      setCartListFunc(state.items.map((item) => item));
     },
   },
 });

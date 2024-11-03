@@ -4,7 +4,7 @@ export interface FavoriteItem {
   title: string;
   price: number;
   category: {
-    name: string;
+    name:string
   };
   images: string[];
   quantity: number;
@@ -13,32 +13,36 @@ export interface FavoriteItem {
 interface FavoriteState {
   items: FavoriteItem[];
 }
-const initialState: FavoriteState = {
+let initialState: FavoriteState = {
   items: [],
 };
-//
+if (typeof window !== "undefined") {
+  initialState = {
+    items: window.localStorage.getItem("favoriteList") !== null
+    ? JSON.parse(window.localStorage.getItem("favoriteList") || '[]')
+    : [],
+  }
+}
+// 
 // adding this function to prevent repear code
-// const setFavoriteListFunc = (products:any) => {
-//   window.localStorage.setItem("favoriteList", JSON.stringify(products));
-// };
+const setFavoriteListFunc = (products:any) => {
+  window.localStorage.setItem("favoriteList", JSON.stringify(products));
+};
 
 const FavoriteSlice = createSlice({
-  name: "favorite",
+  name:"favorite",
   initialState,
-  reducers: {
-    addToFavorite: (
-      state,
-      action: PayloadAction<Omit<FavoriteItem, "quantity">>
-    ) => {
+  reducers:{
+    addToFavorite:(state, action: PayloadAction<Omit<FavoriteItem, "quantity">>) => {
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
       if (!existingItem) {
         state.items.push({ ...action.payload, quantity: 1 });
       }
-      // setFavoriteListFunc(
-      //   state.items.map((item) => item)
-      // );
+      setFavoriteListFunc(
+        state.items.map((item) => item)
+      );
     },
     removeFromFavorite: (state, action: PayloadAction<{ id: number }>) => {
       const existingItem = state.items.find(
@@ -49,19 +53,18 @@ const FavoriteSlice = createSlice({
           (item) => item.id != action.payload.id
         );
       }
-      // setFavoriteListFunc(
-      //   state.items.map((item) => item)
-      // );
+      setFavoriteListFunc(
+        state.items.map((item) => item)
+      );
     },
-    clearFavorite: (state) => {
-      state.items = [];
-      // setFavoriteListFunc(
-      //   state.items.map((item) => item)
-      // );
-    },
-  },
-});
-export const { addToFavorite, removeFromFavorite, clearFavorite } =
-  FavoriteSlice.actions;
+    clearFavorite:(state)=>{
+      state.items= [];
+      setFavoriteListFunc(
+        state.items.map((item) => item)
+      );
+    }
+  }
+})
+export const {addToFavorite,removeFromFavorite,clearFavorite}=FavoriteSlice.actions;
 
-export default FavoriteSlice.reducer;
+export default FavoriteSlice.reducer

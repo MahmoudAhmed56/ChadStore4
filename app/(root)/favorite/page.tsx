@@ -7,6 +7,7 @@ import { RootState } from "@/store/store";
 // import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Favorite = () => {
@@ -19,6 +20,10 @@ const Favorite = () => {
   const clearAllFavorite = () => {
     dispatch(clearFavorite());
   };
+  const [isClient, setIsClient] = useState(false)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
   // const addToCartHandler = (product: Product) => {
   //   toast({
   //     description: "Item Added To Cart",
@@ -29,13 +34,19 @@ const Favorite = () => {
   const totalPrice = items
     .reduce((total, item) => total + item.price * item.quantity, 0)
     .toFixed(2);
+    const totalFun = ()=>{
+        if (isClient) {
+          return( totalPrice)
+        }
+      
+    }
   return (
     <section className="py-12 relative">
       <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
         <h2 className="title font-manrope font-bold text-4xl leading-10 mb-8 text-center text-black">
           My Favorite
         </h2>
-        {items.length == 0 && (
+        {items.length == 0 && isClient && (
           <div className="flex items-center w-full flex-col justify-center">
             <Image
               src={"/images/wishlist_empty.svg"}
@@ -49,7 +60,7 @@ const Favorite = () => {
             </h3>
           </div>
         )}
-        {items.length > 0 && (
+        {items.length > 0 && isClient && (
           <>
             {items?.map((item:FavoriteItem) => {
               return (
@@ -133,7 +144,7 @@ const Favorite = () => {
 
           <div className="flex items-center justify-between gap-5 ">
             <h6 className="font-manrope font-bold text-3xl lead-10 text-indigo-600">
-              ${totalPrice}
+              ${totalFun()}
             </h6>
           </div>
         </div>
@@ -142,7 +153,7 @@ const Favorite = () => {
             Shipping taxes, and discounts calculated at checkout
           </p>
           <div className="flex flex-col lg:flex-row">
-            {items.length == 0 ? (
+            {items.length == 0 && isClient ? (
               <Link
                 href={"/"}
                 className="inline-block text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 text-center me-2 mb-2 py-4 px-6 font-semibold text-lg w-full rounded-full"
